@@ -2,50 +2,270 @@
 
 ## Goal
 
-Allow other devices on the local network to access files stored on the server.
+Allow devices on the local network to access files stored on the server using Samba.
 
-## Installing Samba:
+---
+
+## Installing Samba
+
+Update package lists and install Samba:
+
+```bash
 sudo apt update
 sudo apt install samba
+```
 
-check samba is installed:
+Verify Samba is installed:
+
+```bash
 whereis samba
-Output should be: 
-samba: /usr/lib/x86_64-linux-gnu/samba /etc/samba /usr/libexec/samba /usr/share/samba /usr/share/man/man7/samba.7.gz
-## Setup:
+```
 
-Created a shared directory:
-mkdir /home/username/sambashare
+Example output:
 
-## Configuration
-### Add new directory as a share:
-config files are located in:/etc/samba/smb.conf
-we open this file and add our new share directory:
+```text
+samba: /usr/lib/x86_64-linux-gnu/samba /etc/samba /usr/libexec/samba /usr/share/samba
+```
+
+---
+
+## Creating the Shared Directory
+
+Create a directory that will be shared over the network:
+
+```bash
+mkdir ~/sambashare
+```
+
+Verify it exists:
+
+```bash
+ls -ld ~/sambashare
+```
+
+---
+
+## Configuring Samba
+
+Samba configuration files are located at:
+
+```text
+/etc/samba/smb.conf
+```
+
+Open the configuration file:
+
+```bash
 sudo nano /etc/samba/smb.conf
+```
 
+Add the following share definition:
+
+```ini
 [sambashare]
-    comment = Samba on Ubuntu
-    path = /home/allknowing/sambashare
+    comment = Samba Share
+    path = /home/username/sambashare
     browseable = yes
     read only = no
     guest ok = no
-    valid users = username*
+    valid users = username
+```
 
-Explination of each line:
-[samabashare] : name of the share
-comment : description of the share
-path : directory to our share
-browseable : whether users can discover the server 
-read only : Set to "yes" users will be unable to create or modfiy files 
-            Set to "no" users can create and modify files
-guest ok: Set to "Yes" no password is required to connect to the service.
-          Set to "No" users are required to enter a username and password 
-valid users : restricts access to only specified users (your username) 
+### Configuration Options
 
+| Option         | Purpose                                |
+| -------------- | -------------------------------------- |
+| `[sambashare]` | Name of the share visible to clients   |
+| `comment`      | Description of the share               |
+| `path`         | Directory being shared                 |
+| `browseable`   | Whether clients can discover the share |
+| `read only`    | Controls write access                  |
+| `guest ok`     | Allows anonymous access if enabled     |
+| `valid users`  | Restricts access to specified users    |
 
+### Access Settings
+
+```ini
+read only = yes
+```
+
+Users can view files but cannot modify them.
+
+```ini
+read only = no
+```
+
+Users can create, modify, and delete files.
+
+```ini
+guest ok = yes
+```
+
+No username or password required.
+
+```ini
+guest ok = no
+```
+
+Authentication required.
+
+---
+
+## Restarting Samba
+
+After saving the configuration, restart the Samba service:
+
+```bash
+sudo systemctl restart smbd
+```
+
+Verify it is running:
+
+```bash
+sudo systemctl status smbd
+```
+
+---
+
+## Firewall Configuration
+
+Allow Samba traffic through the firewall:
+
+```bash
+sudo ufw allow samba
+```
+
+Verify the rule:
+
+```bash
+sudo ufw status
+```
+
+---
+
+## Creating a Samba User
+
+Samba uses its own password database.
+
+Create a Samba password for an existing Linux user:
+
+```bash
+sudo smbpasswd -a username
+```
+
+Enable the account:
+
+```bash
+sudo smbpasswd -e username
+```
+
+---
+
+## Testing the Configuration
+
+Validate the Samba configuration:
+
+```bash
+testparm
+```
+
+Expected result:
+
+```text
+Loaded services file OK.
+Server role: ROLE_STANDALONE
+```
+
+Check active Samba connections:
+
+```bash
+sudo smbstatus
+```
+
+---
+
+## Finding the Server Address
+
+Determine the server IP address:
+
+```bash
+hostname -I
+```
+
+Example:
+
+```text
+192.168.1.100
+```
+
+---
+
+## Connecting to the Share
+
+### Ubuntu
+
+Open Files and connect to:
+
+```text
+smb://192.168.1.100/sambashare
+```
+
+### Windows
+
+Open File Explorer and enter:
+
+```text
+\\192.168.1.100\sambashare
+```
+
+### iPhone / iPad
+
+Files → Browse → Connect to Server
+
+Enter:
+
+```text
+smb://192.168.1.100
+```
+
+Authenticate using your Samba username and password.
+
+---
+
+## Troubleshooting
+
+### Verify Permissions
+
+```bash
+getfacl ~/sambashare
+```
+
+### Verify Samba Status
+
+```bash
+sudo smbstatus
+```
+
+### Check Configuration Syntax
+
+```bash
+testparm
+```
+
+### View Service Logs
+
+```bash
+sudo journalctl -u smbd
+```
+
+---
 
 ## Future Improvements
 
-- Create dedicated Samba user
-- Move share to dedicated storage drive
-- Add backup automation
+* Create a dedicated Samba user
+* Move the share to a dedicated storage drive
+* Configure automatic backups
+* Configure read-only shares for sensitive data
+* Add Time Machine support for Apple devices
+* Integrate with LDAP or Active Directory
+* Enable Samba auditing and logging
