@@ -6,15 +6,15 @@ Allow devices on the local network to access files stored on the server using Sa
 
 ---
 ## Table of Contents
-    - Inastalling Samba
-    - Creating shared Directory 
-    - Configuring 
-    - Restarting 
-    - Firewall conifguration 
-    - Finding server address
-    - Connecting to share
-    - Troubleshooting 
-    - Future Improvements 
+1. Inastalling Samba
+2. Creating shared Directory 
+3. Configuring 
+4. Restarting 
+5. Firewall conifguration 
+6. Finding server address
+7. Connecting to share
+8. Troubleshooting 
+9. Future Improvements 
 
 ## Installing Samba
 
