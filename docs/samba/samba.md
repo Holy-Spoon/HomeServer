@@ -83,32 +83,10 @@ Add the following share definition:
 | `guest ok`     | Allows anonymous access if enabled     |
 | `valid users`  | Restricts access to specified users    |
 
-### Access Settings
-
+More can found using: 
 ```ini
-read only = yes
-```
-
-Users can view files but cannot modify them.
-
-```ini
-read only = no
-```
-
-Users can create, modify, and delete files.
-
-```ini
-guest ok = yes
-```
-
-No username or password required.
-
-```ini
-guest ok = no
-```
-
-Authentication required.
-
+man smb.conf
+```                 
 ---
 
 ## Restarting Samba
@@ -262,10 +240,8 @@ sudo journalctl -u smbd
 
 ## Future Improvements
 
-* Create a dedicated Samba user
-* Move the share to a dedicated storage drive
-* Configure automatic backups
-* Configure read-only shares for sensitive data
-* Add Time Machine support for Apple devices
-* Integrate with LDAP or Active Directory
-* Enable Samba auditing and logging
+1. Move share to dedicated storage drive
+2. Configure automatic backups
+3. Create dedicated Samba user
+4. Enable auditing/logging
+5. Configure read-only shares
