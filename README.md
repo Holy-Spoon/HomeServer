@@ -9,10 +9,14 @@
 
 ## Hardware
 
-- Dell OptiPlex
+- HP Laptop
+- AMD Ryzen™ 5 5625U 
+- 512GB SSD 
 - 24GB RAM
 - Ubuntu Server
-
+### Future Hardware 
+- (Dell Optiplex 7060) x 2
+- NAS for Storage 
 ## Progress
 
 - [x] Installed Ubuntu
