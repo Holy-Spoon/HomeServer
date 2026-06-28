@@ -76,3 +76,14 @@ Output similar to the following should appear.
 
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
 df784548666d        getting-started     "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        127.0.0.1:3000->3000/tcp   priceless_mcclintock
+
+
+# Updating a Application
+# Share a Application
+# Persit DB
+# Bind Mounts
+# Multi Container Applications
+# Docker compose
+# Image building Best Practices 
+# What's Next 
+
