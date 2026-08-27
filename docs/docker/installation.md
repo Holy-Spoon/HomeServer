@@ -228,3 +228,8 @@ It is the standard installation method for Ubuntu servers, integrates with the o
 Most importantly, it supports the primary goal of this project:
 
 > Build a home server while understanding every component instead of treating it as a black box.
+
+## How to install using APT repo
+
+![Docker installation using Docker APT repo](https://docs.docker.com/engine/install/ubuntu/)
+
