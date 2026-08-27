@@ -22,8 +22,8 @@
 - [x] Installed Ubuntu
 - [x] Upgraded RAM
 - [x] Configured Samba
-- [ ] Install Docker
-- [ ] Deploy first container
+- [x] Install Docker
+- [x] Deploy first container
 - [ ] Configure backups
 
 ## Documentation
@@ -32,3 +32,5 @@
 - Installation
 - Samba Setup
 - Docker Setup
+- PIhole
+- DNS Resolver
